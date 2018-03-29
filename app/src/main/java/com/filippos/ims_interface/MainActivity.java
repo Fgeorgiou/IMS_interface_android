@@ -1,6 +1,12 @@
 package com.filippos.ims_interface;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,21 +27,27 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+
     EditText loginEmailEditText;
     EditText loginPasswordEditText;
 
     public void login(View view){
 
-        Log.i("Email", loginEmailEditText.getText().toString());
-        Log.i("Password", loginPasswordEditText.getText().toString());
-
         DownloadTask loginTask = new DownloadTask();
-        loginTask.execute("http://67b30367.ngrok.io/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            loginTask.execute("http://38ae160a.ngrok.io/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
+        }
         //loginTask.execute("https://api.androidhive.info/contacts/");
 
 
     }
 
+
+    //After android studio update 3.1, AsyncTask requires API equal or higher than cupcake to run.
+    //Also upon instantiating an AsyncTask and executing it, a check must be made to compare current skd build version against cupcake build version.
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public class DownloadTask extends AsyncTask<String, Void, String>{
 
         @Override
@@ -91,10 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(result).getJSONObject("data");
 
-                Log.i("Email", jsonObject.getString("email"));
-                Log.i("Password", jsonObject.getString("password"));
+                sharedPreferences.edit().putString("first_name", jsonObject.getString("first_name")).apply();
+                sharedPreferences.edit().putString("last_name", jsonObject.getString("last_name")).apply();
+                sharedPreferences.edit().putString("email", jsonObject.getString("email")).apply();
+                sharedPreferences.edit().putString("api_token", jsonObject.getString("api_token")).apply();
+                sharedPreferences.edit().putString("facility_id", jsonObject.getString("facility_id")).apply();
+                sharedPreferences.edit().putString("role_id", jsonObject.getString("role_id")).apply();
 
-                Toast.makeText(getApplicationContext(), "You are logged in", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
+                startActivity(intent);
 
             } catch (JSONException e) {
 
@@ -112,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i("Project state", "running");
+        sharedPreferences = this.getSharedPreferences("com.filippos.ims_interface", Context.MODE_PRIVATE);
 
         loginEmailEditText = findViewById(R.id.loginEmailEditText);
         loginPasswordEditText = findViewById(R.id.loginPasswordEditText);
