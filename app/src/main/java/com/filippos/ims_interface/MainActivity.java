@@ -34,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view){
 
+        //Set this to either a production server address or the ngrok instance running
+        String ngrokURL = "http://e70fd353.ngrok.io";
+
         DownloadTask loginTask = new DownloadTask();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-            loginTask.execute("http://38ae160a.ngrok.io/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
+            loginTask.execute(ngrokURL + "/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
         }
         //loginTask.execute("https://api.androidhive.info/contacts/");
 

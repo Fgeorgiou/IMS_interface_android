@@ -9,11 +9,38 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class HomepageActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+
+    public void navigateToActivity(View view){
+
+        Button ordersButton = findViewById(R.id.ordersButton);
+        Button scanItemsButton = findViewById(R.id.scanItemsButton);
+        Button reportsButton = findViewById(R.id.reportsButton);
+        Button adminActionsButton = findViewById(R.id.adminActionsButton);
+
+        if (ordersButton.equals(view)) {
+            Intent intent = new Intent(HomepageActivity.this, OrdersSubmenuActivity.class);
+            startActivity(intent);
+        }
+        else if(scanItemsButton.equals(view)){
+            Intent intent = new Intent(HomepageActivity.this, ScanItemsActivity.class);
+            startActivity(intent);
+        }
+        else if(reportsButton.equals(view)){
+            Intent intent = new Intent(HomepageActivity.this, ReportsSubmenuActivity.class);
+            startActivity(intent);
+        }
+        else if(adminActionsButton.equals(view)){
+            Intent intent = new Intent(HomepageActivity.this, AdminSubmenuActivity.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +48,12 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         sharedPreferences = this.getSharedPreferences("com.filippos.ims_interface", Context.MODE_PRIVATE);
+
+        TextView welcomeTextView = findViewById(R.id.welcomeTextView);
+        TextView accessLevelTextView = findViewById(R.id.accessLevelTextView);
+
+        welcomeTextView.setText("Welcome, " +  sharedPreferences.getString("first_name", "Anon"));
+        accessLevelTextView.setText("Access Level: " + sharedPreferences.getString("role_id", "Undefined"));
 
     }
 

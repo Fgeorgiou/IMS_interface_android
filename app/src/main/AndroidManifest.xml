@@ -18,7 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomepageActivity"></activity>
+        <activity android:name=".HomepageActivity" />
+        <activity android:name=".OrdersSubmenuActivity" />
+        <activity android:name=".ReportsSubmenuActivity" />
+        <activity android:name=".ScanItemsActivity" />
+        <activity android:name=".AdminSubmenuActivity"></activity>
     </application>
 
 </manifest>
