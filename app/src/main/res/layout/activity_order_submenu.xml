@@ -36,13 +36,13 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:onClick="navigateToOrderActivity"
-            android:text="New\nOrder"
+            android:text="New/Edit\nOrder"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_gravity="fill" />
 
         <Button
-            android:id="@+id/orderSubmenuEditButton"
+            android:id="@+id/orderSubmenuConfirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -52,7 +52,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:onClick="navigateToOrderActivity"
-            android:text="Edit\nOrder"
+            android:text="Confirm\nOrder"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_gravity="fill" />
@@ -60,23 +60,12 @@
     </android.support.v7.widget.GridLayout>
 
     <Button
-        android:id="@+id/orderSubmenuConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="50dp"
-        android:onClick="navigateToOrderActivity"
-        android:text="Confirm" />
-
-    <Button
         android:id="@+id/orderSubmenuReturnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
         android:onClick="navigateToOrderActivity"
         android:text="Back" />
 

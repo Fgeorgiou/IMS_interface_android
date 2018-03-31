@@ -22,7 +22,9 @@
         <activity android:name=".OrdersSubmenuActivity" />
         <activity android:name=".ReportsSubmenuActivity" />
         <activity android:name=".ScanItemsActivity" />
-        <activity android:name=".AdminSubmenuActivity"></activity>
+        <activity android:name=".AdminSubmenuActivity" />
+        <activity android:name=".OrdersActivity" android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>

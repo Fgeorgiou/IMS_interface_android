@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
     EditText loginEmailEditText;
     EditText loginPasswordEditText;
 
-    public void login(View view){
+    //Static variable holding the ngrok server url. It is set to static to avoid repetition inside the scripts
+    //Set this to either a production server address or the ngrok instance running
+    static String ngrokURL = "http://b92959cf.ngrok.io";
 
-        //Set this to either a production server address or the ngrok instance running
-        String ngrokURL = "http://e70fd353.ngrok.io";
+    public void login(View view){
 
         DownloadTask loginTask = new DownloadTask();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
@@ -133,6 +134,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = this.getSharedPreferences("com.filippos.ims_interface", Context.MODE_PRIVATE);
+
+        //Checks if shared preferences for a user already exist. If there is, redirects to the home screen.
+        if(sharedPreferences.contains("first_name") && sharedPreferences.contains("last_name") && sharedPreferences.contains("api_token") && sharedPreferences.contains("email")){
+
+            Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
+            startActivity(intent);
+
+        }
 
         loginEmailEditText = findViewById(R.id.loginEmailEditText);
         loginPasswordEditText = findViewById(R.id.loginPasswordEditText);
