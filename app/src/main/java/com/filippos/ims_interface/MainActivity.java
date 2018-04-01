@@ -27,14 +27,13 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-
     EditText loginEmailEditText;
     EditText loginPasswordEditText;
 
+    static SharedPreferences sharedPreferences;
     //Static variable holding the ngrok server url. It is set to static to avoid repetition inside the scripts
     //Set this to either a production server address or the ngrok instance running
-    static String ngrokURL = "http://b92959cf.ngrok.io";
+    static String ngrokURL = "http://5c92d1ab.ngrok.io";
 
     public void login(View view){
 
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(result).getJSONObject("data");
 
+                sharedPreferences.edit().putString("user_id", jsonObject.getString("id")).apply();
                 sharedPreferences.edit().putString("first_name", jsonObject.getString("first_name")).apply();
                 sharedPreferences.edit().putString("last_name", jsonObject.getString("last_name")).apply();
                 sharedPreferences.edit().putString("email", jsonObject.getString("email")).apply();
