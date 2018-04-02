@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/orderBarcodeEditText"
         android:layout_alignTop="@+id/orderConfirmButton"
+        android:onClick="navigateToOrderSubmenu"
         android:text="Back" />
 
     <TextView

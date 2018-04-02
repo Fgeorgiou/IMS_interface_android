@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static java.util.Arrays.asList;
 
@@ -32,6 +34,21 @@ public class OrdersActivity extends AppCompatActivity {
 
     EditText barcodeEditText;
     EditText quantityEditText;
+
+    ArrayList<Product> productsArray = new ArrayList<>();
+
+    ListView orderListView;
+    ProductAdapter productAdapter;
+
+    public void navigateToOrderSubmenu(View view){
+
+        Button orderBackButton = findViewById(R.id.orderBackButton);
+
+        if(orderBackButton.equals(view)){
+            finish();
+        }
+
+    }
 
     public class FetchOrInitOrder extends AsyncTask<String, Void, String>{
 
@@ -86,24 +103,29 @@ public class OrdersActivity extends AppCompatActivity {
             try {
 
                 JSONObject jsonOrderObject = new JSONObject(result).getJSONObject("current_order");
-                JSONObject jsonProductsObject = new JSONObject(result).getJSONObject("current_order");
 
-                MainActivity.sharedPreferences.edit().putString("order_id", jsonOrderObject.getString("order_id")).apply();
-                if(jsonProductsObject != null){
+                if(jsonOrderObject != null){
 
-                    String orderProducts = jsonProductsObject.getString("order_products");
+                    String orderProductsObj = jsonOrderObject.getString("order_products");
 
-                    Log.i("orderProds", orderProducts);
-
-                    JSONArray jsonProductsArray = new JSONArray(orderProducts);
+                    JSONArray jsonProductsArray = new JSONArray(orderProductsObj);
 
                     for(int i = 0; i < jsonProductsArray.length(); i++) {
 
                         JSONObject jsonPart = jsonProductsArray.getJSONObject(i);
+                        JSONObject jsonProd = new JSONObject(jsonPart.toString()).getJSONObject("product");
 
-                        Log.i("JSONPart", jsonPart.getString("product_id"));
-                        Log.i("JSONPart", jsonPart.getString("quantity"));
+                        String productName = jsonProd.getString("name");
+
+                        productsArray.add(new Product(
+                                jsonPart.getInt("id"),
+                                jsonPart.getInt("order_id"),
+                                productName,
+                                jsonPart.getInt("status_id"),
+                                jsonPart.getInt("quantity")
+                        ));
                     }
+                    refreshListView();
                 }
 
 
@@ -122,23 +144,24 @@ public class OrdersActivity extends AppCompatActivity {
 
         barcodeEditText = findViewById(R.id.orderBarcodeEditText);
         quantityEditText = findViewById(R.id.orderQuantityEditText);
-
-        ListView orderListView = findViewById(R.id.orderListView);
+        orderListView = findViewById(R.id.orderListView);
 
         FetchOrInitOrder fetchOrInitOrder = new FetchOrInitOrder();
         fetchOrInitOrder.execute(MainActivity.ngrokURL + "/api/orders/create?user_id=" + MainActivity.sharedPreferences.getString("user_id", null));
 
-        final ArrayList<String> products = new ArrayList<String>(asList("Cheese", "T-shirt", "Calgon", "Soupline", "Chocolate", "Coffee", "Syrup", "Tart"));
+        refreshListView();
+    }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, products);
+    public void refreshListView(){
 
-        orderListView.setAdapter(arrayAdapter);
+        productAdapter = new ProductAdapter(getApplicationContext(), R.layout.row, productsArray);
 
-        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(getApplicationContext(), products.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(productAdapter != null) {
+
+            orderListView.setAdapter(productAdapter);
+
+            productAdapter.notifyDataSetChanged();
+
+        }
     }
 }
