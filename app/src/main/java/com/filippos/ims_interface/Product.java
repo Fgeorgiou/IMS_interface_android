@@ -4,17 +4,19 @@ public class Product {
 
     public int id;
     public int order_id;
-    public String product_name;
+    public int product_id;
     public int status_id;
     public int quantity;
+    public String product_name;
 
-    public Product(int id, int order_id, String product_name, int status_id, int quantity) {
+    public Product(int id, int order_id, int product_id , int status_id, int quantity, String product_name) {
 
         this.id = id;
         this.order_id = order_id;
-        this.product_name = product_name;
+        this.product_id = product_id;
         this.status_id = status_id;
         this.quantity = quantity;
+        this.product_name = product_name;
     }
 
 
