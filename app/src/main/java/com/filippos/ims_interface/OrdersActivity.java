@@ -198,6 +198,77 @@ public class OrdersActivity extends AppCompatActivity {
         }
     }
 
+    public class FetchProductName extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection;
+
+            try {
+
+                url = new URL(urls[0]);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("GET");
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader reader = new InputStreamReader(in);
+
+                int data = reader.read();
+
+                while (data != -1) {
+
+                    char current = (char) data;
+
+                    result += current;
+
+                    data = reader.read();
+
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            TextView orderProductRecognitionTextView = findViewById(R.id.orderProductRecognitionTextView);
+
+            try {
+
+                JSONObject jsonProductObject = new JSONObject(result).getJSONObject("data");
+
+                String productName = jsonProductObject.getString("name");
+
+                orderProductRecognitionTextView.setText(productName);
+
+            } catch (JSONException e) {
+
+                orderProductRecognitionTextView.setText("Unknown Barcode");
+
+                Toast.makeText(getApplicationContext(), "Unknown barcode number", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,6 +282,16 @@ public class OrdersActivity extends AppCompatActivity {
         fetchOrInitOrder.execute(MainActivity.ngrokURL + "/api/orders/create?user_id=" + MainActivity.sharedPreferences.getString("user_id", null));
 
         refreshListView();
+
+        barcodeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    FetchProductName fetchProductName = new FetchProductName();
+                    fetchProductName.execute(MainActivity.ngrokURL + "/api/products/show/" + barcodeEditText.getText());
+                }
+            }
+        });
     }
 
     /*
