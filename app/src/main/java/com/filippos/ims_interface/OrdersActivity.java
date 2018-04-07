@@ -198,6 +198,10 @@ public class OrdersActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    This AsyncTask identifies the product based on the barcode inserted and queries the db for additional info such as
+    product_name, stock and suggested quantity then updated the UI
+     */
     public class FetchProductName extends AsyncTask<String, Void, String> {
 
         @Override
@@ -250,20 +254,100 @@ public class OrdersActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             TextView orderProductRecognitionTextView = findViewById(R.id.orderProductRecognitionTextView);
+            TextView orderStockTextView = findViewById(R.id.orderStockTextView);
 
             try {
 
+                //Getting the whole json response
                 JSONObject jsonProductObject = new JSONObject(result).getJSONObject("data");
 
                 String productName = jsonProductObject.getString("name");
 
+                //Getting the nested stock object
+                JSONObject jsonProductStockObject = new JSONObject(jsonProductObject.toString()).getJSONObject("stock");
+
+                String productStock = jsonProductStockObject.getString("quantity");
+
+                //Updating the UI wit response info
                 orderProductRecognitionTextView.setText(productName);
+                orderStockTextView.setText(productStock);
 
             } catch (JSONException e) {
 
                 orderProductRecognitionTextView.setText("Unknown Barcode");
+                orderStockTextView.setText("");
 
                 Toast.makeText(getApplicationContext(), "Unknown barcode number", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
+    public class StoreOrderProduct extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... urls) {
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection;
+
+            try {
+
+                url = new URL(urls[0]);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader reader = new InputStreamReader(in);
+
+                int data = reader.read();
+
+                while (data != -1) {
+
+                    char current = (char) data;
+
+                    result += current;
+
+                    data = reader.read();
+
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            try {
+
+                JSONObject jsonResponse = new JSONObject(result).getJSONObject("response");
+
+                String jsonMessage = jsonResponse.getString("message");
+
+                productsArray.clear();
+
+                FetchOrInitOrder fetchOrInitOrder = new FetchOrInitOrder();
+                fetchOrInitOrder.execute(MainActivity.ngrokURL + "/api/orders/create?user_id=" + MainActivity.sharedPreferences.getString("user_id", null));
+
+                Toast.makeText(getApplicationContext(), jsonMessage, Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+
+                Toast.makeText(getApplicationContext(), "Error. Please try again!", Toast.LENGTH_LONG).show();
 
             }
         }
@@ -306,6 +390,15 @@ public class OrdersActivity extends AppCompatActivity {
         if(orderBackButton.equals(view)){
             finish();
         }
+
+    }
+
+    public void addOrderProduct(View view){
+
+        StoreOrderProduct storeOrderProduct = new StoreOrderProduct();
+        storeOrderProduct.execute(MainActivity.ngrokURL + "/api/orders/create?barcode=" + barcodeEditText.getText().toString() + "&quantity=" + quantityEditText.getText().toString());
+
+        refreshListView();
 
     }
 
