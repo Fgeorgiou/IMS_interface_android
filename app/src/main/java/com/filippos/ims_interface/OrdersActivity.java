@@ -2,7 +2,7 @@ package com.filippos.ims_interface;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,9 +27,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.util.Arrays.asList;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -378,19 +374,56 @@ public class OrdersActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String contents = data.getStringExtra("SCAN_RESULT"); //this is the result
+
+                Log.i("info",contents.substring(0));
+
+                if(contents.length() == 12){
+
+                    barcodeEditText.setText("0" + contents);
+
+                } else {
+
+                    barcodeEditText.setText(contents);
+
+                }
+
+                barcodeEditText.requestFocus();
+                quantityEditText.requestFocus();
+            } else
+            if (resultCode == RESULT_CANCELED) {
+                // Handle cancel
+            }
+        }
+    }
+
     /*
     Below are the helper functions for this activity
     The first is a simple navigateBack type of function to go back one activity
     The second is responsible for setting the adapter to the list view, setting up the delete listener and notifying for changes so the list can always ne updated.
     */
     public void navigateToOrderSubmenu(View view){
+        finish();
+    }
 
-        Button orderBackButton = findViewById(R.id.orderBackButton);
+    public void scanFunction(View view){
+        try {
+            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            intent.putExtra("SCAN_MODE", "PRODUCT_MODE");//for Qr code, its "QR_CODE_MODE" instead of "PRODUCT_MODE"
+            intent.putExtra("SAVE_HISTORY", false);//this stops saving ur barcode in barcode scanner app's history
+            startActivityForResult(intent, 0);
+        }catch(Exception e){
 
-        if(orderBackButton.equals(view)){
-            finish();
+            Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+            Intent marketIntent = new Intent(Intent.ACTION_VIEW,marketUri);
+            startActivity(marketIntent);
+
         }
-
     }
 
     public void addOrderProduct(View view){
@@ -404,7 +437,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     public void refreshListView(){
 
-        productAdapter = new ProductAdapter(getApplicationContext(), R.layout.row, productsArray);
+        productAdapter = new ProductAdapter(getApplicationContext(), R.layout.product_row, productsArray);
 
         if(productAdapter != null) {
 

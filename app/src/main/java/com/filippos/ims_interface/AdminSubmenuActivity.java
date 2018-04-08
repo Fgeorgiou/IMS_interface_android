@@ -18,24 +18,20 @@ public class AdminSubmenuActivity extends AppCompatActivity {
         Button adminSubmenuReturnButton = findViewById(R.id.adminSubmenuReturnButton);
 
         if (adminUsersButton.equals(view)) {
-            Log.i("Button pressed", "users");
-//            Intent intent = new Intent(AdminSubmenuActivity.this, OrdersSubmenuActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AdminSubmenuActivity.this, AdminUsersActivity.class);
+            startActivity(intent);
         }
         else if(adminSuppliersButton.equals(view)){
-            Log.i("Button pressed", "suppliers");
-//            Intent intent = new Intent(AdminSubmenuActivity.this, ScanItemsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AdminSubmenuActivity.this, AdminSuppliersActivity.class);
+            startActivity(intent);
         }
         else if(adminProductsButton.equals(view)){
-            Log.i("Button pressed", "products");
-//            Intent intent = new Intent(AdminSubmenuActivity.this, ReportsSubmenuActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AdminSubmenuActivity.this, AdminProductsActivity.class);
+            startActivity(intent);
         }
         else if(adminCategoriesButton.equals(view)){
-            Log.i("Button pressed", "categories");
-//            Intent intent = new Intent(AdminSubmenuActivity.this, AdminSubmenuActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AdminSubmenuActivity.this, AdminCategoriesActivity.class);
+            startActivity(intent);
         }else if(adminSubmenuReturnButton.equals(view)){
             finish();
         }

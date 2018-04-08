@@ -34,7 +34,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        //inflate the layout for a single row
+        //inflate the layout for a single product_row
         LayoutInflater inflater = LayoutInflater.from(mContext);
         row = inflater.inflate(mLayoutResourceId, parent, false);
 
@@ -51,7 +51,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         rowProductQuantity.setText(Integer.toString(product.quantity));
         rowProductStatus.setText(Integer.toString(product.status_id));
 
-        //returning the row view
+        //returning the product_row view
         return row;
     }
 }

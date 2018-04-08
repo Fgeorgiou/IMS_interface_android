@@ -21,11 +21,12 @@
 
     <EditText
         android:id="@+id/orderBarcodeEditText"
-        android:layout_width="275dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="51dp"
         android:ems="10"
         android:hint="Type barcode"
         android:inputType="number" />
@@ -43,9 +44,9 @@
         android:id="@+id/orderQuantityEditText"
         android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/orderBarcodeEditText"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="133dp"
+        android:layout_alignBaseline="@+id/orderProductRecognitionTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:hint="Quantity"
         android:inputType="number" />
@@ -64,8 +65,9 @@
         android:id="@+id/orderBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/orderBarcodeEditText"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/orderConfirmButton"
+        android:layout_marginEnd="50dp"
         android:onClick="navigateToOrderSubmenu"
         android:text="Back" />
 
@@ -83,8 +85,8 @@
         android:id="@+id/orderSuggestedTextView"
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:layout_alignEnd="@+id/orderBarcodeEditText"
         android:layout_alignTop="@+id/orderStockTextView"
+        android:layout_toEndOf="@+id/orderTitleTextView"
         android:background="@drawable/back"
         android:gravity="center"
         android:text="5" />
@@ -118,4 +120,13 @@
         android:layout_marginBottom="147dp"
         android:text="Waiting for scan.."
         android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/orderBarcodeEditText"
+        android:layout_toEndOf="@+id/orderBarcodeEditText"
+        android:onClick="scanFunction"
+        android:text="or Scan" />
 </RelativeLayout>
