@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:id="@+id/rowUserFullName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_below="@+id/rowUserFullName"
+        android:id="@+id/rowUserEmailLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowUserEmailLabel"
+        android:layout_below="@+id/rowUserFullName"
+        android:id="@+id/rowUserEmail"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facility: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowUserEmail"
+        android:layout_below="@+id/rowUserFullName"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/rowUserFacilityLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowUserFacilityLabel"
+        android:layout_below="@+id/rowUserFullName"
+        android:id="@+id/rowUserFacility"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowUserFacility"
+        android:layout_below="@+id/rowUserFullName"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/rowUserRoleAndAccessLevelLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowUserRoleAndAccessLevelLabel"
+        android:layout_below="@+id/rowUserFullName"
+        android:id="@+id/rowUserRoleAndAccessLevel"/>
+
+</RelativeLayout>

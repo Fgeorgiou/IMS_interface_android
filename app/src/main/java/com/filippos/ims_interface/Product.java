@@ -18,6 +18,4 @@ public class Product {
         this.quantity = quantity;
         this.product_name = product_name;
     }
-
-
 }

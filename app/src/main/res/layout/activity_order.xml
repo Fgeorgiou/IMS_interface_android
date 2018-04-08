@@ -75,9 +75,9 @@
         android:id="@+id/orderStockTextView"
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:layout_alignEnd="@+id/orderConfirmButton"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="89dp"
+        android:layout_marginBottom="87dp"
+        android:layout_toStartOf="@+id/orderTitleTextView"
         android:background="@drawable/back"
         android:gravity="center" />
 
