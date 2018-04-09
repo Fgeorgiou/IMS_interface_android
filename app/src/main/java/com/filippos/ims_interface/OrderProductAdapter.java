@@ -11,22 +11,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends ArrayAdapter<Product> {
+public class OrderProductAdapter extends ArrayAdapter<OrderProduct> {
 
     Context mContext;
     int mLayoutResourceId;
-    ArrayList<Product> mProduct = null;
+    ArrayList<OrderProduct> mOrderProduct = null;
 
-    public ProductAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Product> data) {
+    public OrderProductAdapter(@NonNull Context context, int resource, @NonNull ArrayList<OrderProduct> data) {
         super(context, resource, data);
         this.mContext = context;
         this.mLayoutResourceId = resource;
-        this.mProduct = data;
+        this.mOrderProduct = data;
     }
 
     @Nullable
     @Override
-    public Product getItem(int position) {
+    public OrderProduct getItem(int position) {
         return super.getItem(position);
     }
 
@@ -34,24 +34,24 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        //inflate the layout for a single product_row
+        //inflate the layout for a single order_product_row
         LayoutInflater inflater = LayoutInflater.from(mContext);
         row = inflater.inflate(mLayoutResourceId, parent, false);
 
         //get a reference to the different view elements we wish to update
-        TextView rowProductName = row.findViewById(R.id.rowProductName);
-        TextView rowProductQuantity = row.findViewById(R.id.rowProductQuantity);
-        TextView rowProductStatus = row.findViewById(R.id.rowProductStatus);
+        TextView rowOrderProductName = row.findViewById(R.id.rowOrderProductName);
+        TextView rowOrderProductQuantity = row.findViewById(R.id.rowOrderProductQuantity);
+        TextView rowOrderProductStatus = row.findViewById(R.id.rowOrderProductStatus);
 
         //get the data from the data array
-        Product product = mProduct.get(position);
+        OrderProduct orderProduct = mOrderProduct.get(position);
 
         //setting the view to reflect the data we need to display
-        rowProductName.setText(product.product_name);
-        rowProductQuantity.setText(Integer.toString(product.quantity));
-        rowProductStatus.setText(Integer.toString(product.status_id));
+        rowOrderProductName.setText(orderProduct.product_name);
+        rowOrderProductQuantity.setText(Integer.toString(orderProduct.quantity));
+        rowOrderProductStatus.setText(Integer.toString(orderProduct.status_id));
 
-        //returning the product_row view
+        //returning the order_product_row view
         return row;
     }
 }

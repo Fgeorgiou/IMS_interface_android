@@ -1,6 +1,6 @@
 package com.filippos.ims_interface;
 
-public class Product {
+public class OrderProduct {
 
     public int id;
     public int order_id;
@@ -9,7 +9,7 @@ public class Product {
     public int quantity;
     public String product_name;
 
-    public Product(int id, int order_id, int product_id , int status_id, int quantity, String product_name) {
+    public OrderProduct(int id, int order_id, int product_id , int status_id, int quantity, String product_name) {
 
         this.id = id;
         this.order_id = order_id;

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,10 +32,10 @@ public class OrdersActivity extends AppCompatActivity {
     EditText barcodeEditText;
     EditText quantityEditText;
 
-    ArrayList<Product> productsArray = new ArrayList<>();
+    ArrayList<OrderProduct> productsArrayList = new ArrayList<>();
 
     ListView orderListView;
-    ProductAdapter productAdapter;
+    OrderProductAdapter productAdapter;
 
     /*
     This AsyncTask is responsible for initializing or fetching the existing order and its items
@@ -110,7 +109,7 @@ public class OrdersActivity extends AppCompatActivity {
 
                         String productName = jsonProd.getString("name");
 
-                        productsArray.add(new Product(
+                        productsArrayList.add(new OrderProduct(
                                 jsonPart.getInt("id"),
                                 jsonPart.getInt("order_id"),
                                 jsonPart.getInt("product_id"),
@@ -334,7 +333,7 @@ public class OrdersActivity extends AppCompatActivity {
 
                 String jsonMessage = jsonResponse.getString("message");
 
-                productsArray.clear();
+                productsArrayList.clear();
 
                 FetchOrInitOrder fetchOrInitOrder = new FetchOrInitOrder();
                 fetchOrInitOrder.execute(MainActivity.ngrokURL + "/api/orders/create?user_id=" + MainActivity.sharedPreferences.getString("user_id", null));
@@ -437,7 +436,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     public void refreshListView(){
 
-        productAdapter = new ProductAdapter(getApplicationContext(), R.layout.product_row, productsArray);
+        productAdapter = new OrderProductAdapter(getApplicationContext(), R.layout.order_product_row, productsArrayList);
 
         if(productAdapter != null) {
 
@@ -459,9 +458,9 @@ public class OrdersActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                     DeleteTask deleteTask = new DeleteTask();
-                                    deleteTask.execute(MainActivity.ngrokURL + "/api/orders/delete?id="+ productsArray.get(itemToDelete).product_id);
+                                    deleteTask.execute(MainActivity.ngrokURL + "/api/orders/delete?id="+ productsArrayList.get(itemToDelete).product_id);
 
-                                    productsArray.remove(itemToDelete);
+                                    productsArrayList.remove(itemToDelete);
                                 }
                             })
                             .setNegativeButton("No", null)

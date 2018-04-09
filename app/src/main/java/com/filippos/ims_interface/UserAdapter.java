@@ -34,13 +34,12 @@ public class UserAdapter extends ArrayAdapter<User> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        //inflate the layout for a single product_row
+        //inflate the layout for a single user_row
         LayoutInflater inflater = LayoutInflater.from(mContext);
         row = inflater.inflate(mLayoutResourceId, parent, false);
 
         //get a reference to the different view elements we wish to update
         TextView rowUserFullName = row.findViewById(R.id.rowUserFullName);
-        TextView rowUserEmail = row.findViewById(R.id.rowUserEmail);
         TextView rowUserFacility = row.findViewById(R.id.rowUserFacility);
         TextView rowUserRoleAndAccessLevel = row.findViewById(R.id.rowUserRoleAndAccessLevel);
 
@@ -49,11 +48,10 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         //setting the view to reflect the data we need to display
         rowUserFullName.setText(user.first_name + " " + user.last_name);
-        rowUserEmail.setText(user.email);
         rowUserFacility.setText(user.facility_name);
-        rowUserRoleAndAccessLevel.setText(user.role_description + ":" + Integer.toString(user.access_level));
+        rowUserRoleAndAccessLevel.setText(user.role_description + ", " + Integer.toString(user.access_level));
 
-        //returning the product_row view
+        //returning the user_row view
         return row;
     }
 }

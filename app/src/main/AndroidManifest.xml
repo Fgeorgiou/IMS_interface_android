@@ -20,14 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomepageActivity" />
+        <activity
+            android:name=".HomepageActivity" />
         <activity
             android:name=".OrdersSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ReportsSubmenuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ScanItemsActivity" />
+        <activity
+            android:name=".ScanItemsActivity" />
         <activity
             android:name=".AdminSubmenuActivity"
             android:screenOrientation="portrait" />
@@ -35,10 +37,17 @@
             android:name=".OrdersActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".AdminUsersActivity" />
-        <activity android:name=".AdminSuppliersActivity" />
-        <activity android:name=".AdminProductsActivity" />
-        <activity android:name=".AdminCategoriesActivity"></activity>
+        <activity
+            android:name=".AdminUsersActivity" />
+        <activity
+            android:name=".AdminSuppliersActivity" />
+        <activity
+            android:name=".AdminProductsActivity" />
+        <activity
+            android:name=".AdminCategoriesActivity" />
+        <activity
+            android:name=".AddUsersActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

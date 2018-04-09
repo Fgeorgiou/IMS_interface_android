@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
+        android:text="Georgios Georgiou"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
         android:id="@+id/rowUserFullName"/>
@@ -15,37 +15,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email: "
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000"
-        android:layout_below="@+id/rowUserFullName"
-        android:id="@+id/rowUserEmailLabel"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000"
-        android:layout_toRightOf="@+id/rowUserEmailLabel"
-        android:layout_below="@+id/rowUserFullName"
-        android:id="@+id/rowUserEmail"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Facility: "
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000"
-        android:layout_toRightOf="@+id/rowUserEmail"
         android:layout_below="@+id/rowUserFullName"
-        android:layout_marginLeft="40dp"
         android:id="@+id/rowUserFacilityLabel"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10"
+        android:text="Gerakas"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000"
         android:layout_toRightOf="@+id/rowUserFacilityLabel"
@@ -66,7 +45,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10"
+        android:text="Employee, 10"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000"
         android:layout_toRightOf="@+id/rowUserRoleAndAccessLevelLabel"

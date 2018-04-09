@@ -1,6 +1,7 @@
 package com.filippos.ims_interface;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -104,7 +106,6 @@ public class AdminUsersActivity extends AppCompatActivity {
                                 jsonPart.getInt("id"),
                                 jsonPart.getString("first_name"),
                                 jsonPart.getString("last_name"),
-                                jsonPart.getString("email"),
                                 facilityName,
                                 roleDescription,
                                 access_level
@@ -122,6 +123,68 @@ public class AdminUsersActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    This AsyncTask is responsible for deleting records from the current order
+    The doInBackground method will download all the data and hit the delete endpoint of the orders, marking as deleted the item.
+    The onPostExecute will take over once the task is finished and will remove the item from the ArrayList, refresh the List view and inform the user with a toast.
+    */
+    public class DeleteTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection;
+
+            try {
+
+                url = new URL(urls[0]);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("GET");
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader reader = new InputStreamReader(in);
+
+                int data = reader.read();
+
+                while (data != -1) {
+
+                    char current = (char) data;
+
+                    result += current;
+
+                    data = reader.read();
+
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Toast.makeText(getApplicationContext(), "User was marked as inactive successfully!", Toast.LENGTH_LONG).show();
+
+            refreshListView();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,8 +196,22 @@ public class AdminUsersActivity extends AppCompatActivity {
         downloadUsers.execute(MainActivity.ngrokURL + "/api/users");
     }
 
-    public void backToAdminActions(View view){ finish(); }
+    public void adminActionsNavigator(View view) {
 
+//        Button addButton = findViewById(R.id.newUserButton);
+//        Button backButton = findViewById(R.id.usersBackButton);
+
+        if (view.equals(findViewById(R.id.newUserButton))) {
+
+            Intent intent = new Intent(this, AddUsersActivity.class);
+            startActivity(intent);
+
+        } else if (view.equals(findViewById(R.id.usersBackButton))){
+
+            finish();
+
+        }
+    }
     public void refreshListView(){
 
         userAdapter = new UserAdapter(getApplicationContext(), R.layout.user_row, userArrayList);
@@ -153,13 +230,13 @@ public class AdminUsersActivity extends AppCompatActivity {
                     new AlertDialog.Builder(AdminUsersActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Are you sure?")
-                            .setMessage("Delete this item from current order?")
+                            .setMessage("Mark user as inactive?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    //OrdersActivity.DeleteTask deleteTask = new OrdersActivity.DeleteTask();
-                                    //deleteTask.execute(MainActivity.ngrokURL + "/api/users/delete?id="+ userArrayList.get(itemToDelete).id);
+                                    DeleteTask deleteTask = new DeleteTask();
+                                    deleteTask.execute(MainActivity.ngrokURL + "/api/users/delete/" + userArrayList.get(itemToDelete).id);
 
                                     userArrayList.remove(itemToDelete);
                                 }
