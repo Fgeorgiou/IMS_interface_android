@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanProductsActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Blue Cheese"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="234dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="112dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="Product Barcode"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="6602863008182"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="Units Per Pack"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="13"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="Unit Net Weight"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="4.926"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="Unit Gross Weight"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="5.126"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="Lead Time (days)"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="2"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:padding="3dip"
+                android:text="In Stock"
+                android:textColor="#000" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="12"
+                android:textColor="#000" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/scannedProductScanButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:onClick="scannedProductNavigator"
+        android:text="Scan" />
+
+    <Button
+        android:id="@+id/scannedProductAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="scannedProductNavigator"
+        android:text="Add to Selection" />
+
+    <Button
+        android:id="@+id/scannedProductBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:onClick="scannedProductNavigator"
+        android:text="Back" />
+
+</RelativeLayout>

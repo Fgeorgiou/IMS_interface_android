@@ -380,8 +380,6 @@ public class OrdersActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT"); //this is the result
 
-                Log.i("info",contents.substring(0));
-
                 if(contents.length() == 12){
 
                     barcodeEditText.setText("0" + contents);

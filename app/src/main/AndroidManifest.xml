@@ -4,8 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.screen.portrait" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,8 +27,6 @@
             android:name=".ReportsSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScanItemsActivity" />
-        <activity
             android:name=".AdminSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -38,15 +34,28 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AdminUsersActivity" />
+            android:name=".AdminUsersActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminSuppliersActivity" />
+            android:name=".AdminSuppliersActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminProductsActivity" />
+            android:name=".AdminProductsActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminCategoriesActivity" />
+            android:name=".AdminCategoriesActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddUsersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanSubmenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanIncomingOrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanProductsActivity"
             android:screenOrientation="portrait" />
     </application>
 

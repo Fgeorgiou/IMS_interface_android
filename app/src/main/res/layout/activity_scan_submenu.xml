@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanSubmenuActivity">
+
+    <Button
+        android:id="@+id/scanSubmenuBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Back"
+        android:onClick="scanSubmenuNavigator"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="475dp" />
+
+    <TextView
+        android:id="@+id/scanSubmenuTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Scan Options"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="158dp">
+
+        <Button
+            android:id="@+id/scanProductsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:onClick="scanSubmenuNavigator"
+            android:text="Scan\nProducts"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <Button
+            android:id="@+id/scanIncomingOrdersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:onClick="scanSubmenuNavigator"
+            android:text="Scan\nArriving\nOrders"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+    </android.support.v7.widget.GridLayout>
+
+</RelativeLayout>
