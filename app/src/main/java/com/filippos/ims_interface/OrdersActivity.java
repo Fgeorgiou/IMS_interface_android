@@ -426,7 +426,10 @@ public class OrdersActivity extends AppCompatActivity {
     public void addOrderProduct(View view){
 
         StoreOrderProduct storeOrderProduct = new StoreOrderProduct();
-        storeOrderProduct.execute(MainActivity.ngrokURL + "/api/orders/create?barcode=" + barcodeEditText.getText().toString() + "&quantity=" + quantityEditText.getText().toString());
+        storeOrderProduct.execute(MainActivity.ngrokURL + "/api/order_products/store?barcode=" + barcodeEditText.getText().toString() + "&quantity=" + quantityEditText.getText().toString());
+
+        barcodeEditText.setText("");
+        quantityEditText.setText("");
 
         refreshListView();
 
@@ -436,39 +439,36 @@ public class OrdersActivity extends AppCompatActivity {
 
         productAdapter = new OrderProductAdapter(getApplicationContext(), R.layout.order_product_row, productsArrayList);
 
-        if(productAdapter != null) {
+        orderListView.setAdapter(productAdapter);
 
-            orderListView.setAdapter(productAdapter);
+        orderListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-            orderListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int itemToDelete = i;
 
-                    final int itemToDelete = i;
+                new AlertDialog.Builder(OrdersActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure?")
+                        .setMessage("Delete this item from current order?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    new AlertDialog.Builder(OrdersActivity.this)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle("Are you sure?")
-                            .setMessage("Delete this item from current order?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                                DeleteTask deleteTask = new DeleteTask();
+                                deleteTask.execute(MainActivity.ngrokURL + "/api/orders/delete?id="+ productsArrayList.get(itemToDelete).product_id);
 
-                                    DeleteTask deleteTask = new DeleteTask();
-                                    deleteTask.execute(MainActivity.ngrokURL + "/api/orders/delete?id="+ productsArrayList.get(itemToDelete).product_id);
+                                productsArrayList.remove(itemToDelete);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
 
-                                    productsArrayList.remove(itemToDelete);
-                                }
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
+                return true;
+            }
+        });
+        productAdapter.notifyDataSetChanged();
 
-                    return true;
-                }
-            });
-            productAdapter.notifyDataSetChanged();
-
-        }
     }
 }
