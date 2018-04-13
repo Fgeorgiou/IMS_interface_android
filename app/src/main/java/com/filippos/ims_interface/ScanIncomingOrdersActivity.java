@@ -7,11 +7,15 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +33,64 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
 
     ListView arrivingOrderListView;
     ArrivingProductAdapter arrivingProductAdapter;
+
+    public class CreateArrivingOrder extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection;
+
+            try {
+
+                url = new URL(urls[0]);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("GET");
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader reader = new InputStreamReader(in);
+
+                int data = reader.read();
+
+                while (data != -1) {
+
+                    char current = (char) data;
+
+                    result += current;
+
+                    data = reader.read();
+
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            for(int i = 0; i < arrivingProductsArrayList.size(); i++) {
+                StoreArrivingOrder storeArrivingOrder = new StoreArrivingOrder();
+                storeArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrival_products/store?barcode=" + arrivingProductsArrayList.get(i).ean +"&quantity=" + arrivingProductsArrayList.get(i).quantity);
+            }
+        }
+    }
 
     public class StoreArrivingOrder extends AsyncTask<String, Void, String>{
 
@@ -80,6 +142,20 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            try {
+
+                JSONObject jsonResponse = new JSONObject(result).getJSONObject("response");
+
+                String jsonMessage = jsonResponse.getString("message");
+
+                Toast.makeText(getApplicationContext(), jsonMessage, Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+
+            }
         }
     }
 
@@ -103,7 +179,7 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
                     Pattern Qrformat = Pattern.compile("[0-9]+[x][0-9]+[,]?");
                     Matcher matcher = Qrformat.matcher(contents);
                     if(matcher.lookingAt()) {
-                        String[] splitContents = contents.split(",");
+                        String[] splitContents = contents.split(",\n");
 
                         arrivingProductsArrayList.clear();
 
@@ -185,9 +261,10 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
             }
         }
         else if(scannedOrderStockButton.equals(view)){
-            Toast.makeText(getApplicationContext(), "Will Add To Stock", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(ScanProductsActivity.this, ScanProductsActivity.class);
-//            startActivity(intent);
+
+            CreateArrivingOrder createArrivingOrder = new CreateArrivingOrder();
+            createArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrivals/create?order_id=11");
+
         }
         else if(scannedOrderBackButton.equals(view)){
             finish();
