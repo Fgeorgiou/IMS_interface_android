@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences sharedPreferences;
     //Static variable holding the ngrok server url. It is set to static to avoid repetition inside the scripts
     //Set this to either a production server address or the ngrok instance running
-    static String ngrokURL = "http://7c6dbd69.ngrok.io";
+    static String ngrokURL = "http://6beca40b.ngrok.io";
 
     public void login(View view){
 
