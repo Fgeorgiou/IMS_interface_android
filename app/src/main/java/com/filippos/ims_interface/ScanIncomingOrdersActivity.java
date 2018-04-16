@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 public class ScanIncomingOrdersActivity extends AppCompatActivity {
 
     ArrayList<ArrivingProduct> arrivingProductsArrayList = new ArrayList<>();
+    String target_order_id;
 
     ListView arrivingOrderListView;
     ArrivingProductAdapter arrivingProductAdapter;
@@ -85,9 +86,22 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            for(int i = 0; i < arrivingProductsArrayList.size(); i++) {
-                StoreArrivingOrder storeArrivingOrder = new StoreArrivingOrder();
-                storeArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrival_products/store?barcode=" + arrivingProductsArrayList.get(i).ean +"&quantity=" + arrivingProductsArrayList.get(i).quantity);
+            //This loop will handle sending the products in the DB and then cleaning the array list to avoid user's repetitive entries.
+            for(int i = 0; i <= arrivingProductsArrayList.size(); i++) {
+                if(arrivingOrderListView != null && i == arrivingProductsArrayList.size()){
+                    //The counter is equal to the limit, therefore this is the final loop
+                    //clean the list and exit
+
+                    arrivingProductsArrayList.clear();
+
+                    arrivingProductAdapter.notifyDataSetChanged();
+
+                }else {
+
+                    StoreArrivingOrder storeArrivingOrder = new StoreArrivingOrder();
+                    storeArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrival_products/store?barcode=" + arrivingProductsArrayList.get(i).ean + "&quantity=" + arrivingProductsArrayList.get(i).quantity);
+
+                }
             }
         }
     }
@@ -176,8 +190,8 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
                 if(data != null) {
                     String contents = data.getStringExtra("SCAN_RESULT"); //this is the result
 
-                    Pattern Qrformat = Pattern.compile("[0-9]+[x][0-9]+[,]?");
-                    Matcher matcher = Qrformat.matcher(contents);
+                    Pattern QR_format = Pattern.compile("[0-9a-z]+[x][0-9]+[,]?");
+                    Matcher matcher = QR_format.matcher(contents);
                     if(matcher.lookingAt()) {
                         String[] splitContents = contents.split(",\n");
 
@@ -187,7 +201,18 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
 
                             String[] splitContentPart = splitContent.split("x");
 
-                            arrivingProductsArrayList.add(new ArrivingProduct(splitContentPart[0], Integer.parseInt(splitContentPart[1])));
+                            //Check the first part of the split to see if its a barcode.
+                            if(splitContentPart[0].matches("[0-9]+")) {
+
+                                //If it is, add it to the array list
+                                arrivingProductsArrayList.add(new ArrivingProduct(splitContentPart[0], Integer.parseInt(splitContentPart[1])));
+
+                            } else if(splitContentPart[0].matches("[a-z]{5}")){
+
+                                //Else presume that its the order id. In that case, save it for further use.
+                                target_order_id = splitContentPart[1];
+
+                            }
 
                         }
 
@@ -263,7 +288,7 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
         else if(scannedOrderStockButton.equals(view)){
 
             CreateArrivingOrder createArrivingOrder = new CreateArrivingOrder();
-            createArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrivals/create?order_id=11");
+            createArrivingOrder.execute(MainActivity.ngrokURL + "/api/arrivals/create?order_id=" + target_order_id);
 
         }
         else if(scannedOrderBackButton.equals(view)){

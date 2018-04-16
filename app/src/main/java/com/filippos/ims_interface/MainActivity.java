@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -33,25 +35,31 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences sharedPreferences;
     //Static variable holding the ngrok server url. It is set to static to avoid repetition inside the scripts
     //Set this to either a production server address or the ngrok instance running
-    static String ngrokURL = "http://51e18a96.ngrok.io";
+    static String ngrokURL = "http://239eb103.ngrok.io";
+
+    public boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
 
     public void login(View view){
 
-        DownloadTask loginTask = new DownloadTask();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-            loginTask.execute(ngrokURL + "/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
+        if(isOnline()) {
+
+            LoginTask loginTask = new LoginTask();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+                loginTask.execute(ngrokURL + "/api/login?email=" + loginEmailEditText.getText().toString() + "&password=" + loginPasswordEditText.getText().toString());
+            }
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Internet connection is required.", Toast.LENGTH_LONG).show();
+
         }
-        //loginTask.execute("https://api.androidhive.info/contacts/");
-
-
     }
 
-
-    //After android studio update 3.1, AsyncTask requires API equal or higher than cupcake to run.
-    //Also upon instantiating an AsyncTask and executing it, a check must be made to compare current skd build version against cupcake build version.
-    @TargetApi(Build.VERSION_CODES.CUPCAKE)
-    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
-    public class DownloadTask extends AsyncTask<String, Void, String>{
+    public class LoginTask extends AsyncTask<String, Void, String>{
 
         @Override
         protected String doInBackground(String... urls) {
@@ -105,14 +113,15 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 JSONObject jsonObject = new JSONObject(result).getJSONObject("data");
+                JSONObject userRole = new JSONObject(jsonObject.toString()).getJSONObject("role");
 
                 sharedPreferences.edit().putString("user_id", jsonObject.getString("id")).apply();
                 sharedPreferences.edit().putString("first_name", jsonObject.getString("first_name")).apply();
                 sharedPreferences.edit().putString("last_name", jsonObject.getString("last_name")).apply();
                 sharedPreferences.edit().putString("email", jsonObject.getString("email")).apply();
                 sharedPreferences.edit().putString("api_token", jsonObject.getString("api_token")).apply();
-                sharedPreferences.edit().putString("facility_id", jsonObject.getString("facility_id")).apply();
-                sharedPreferences.edit().putString("role_id", jsonObject.getString("role_id")).apply();
+                //sharedPreferences.edit().putString("facility_id", jsonObject.getString("facility_id")).apply();
+                sharedPreferences.edit().putString("role_id", userRole.getString("access_level")).apply();
 
                 Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
                 startActivity(intent);
@@ -136,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("com.filippos.ims_interface", Context.MODE_PRIVATE);
 
         //Checks if shared preferences for a user already exist. If there is, redirects to the home screen.
+        //TODO: Remove the check to better control internet availability via login screen
         if(sharedPreferences.contains("first_name") && sharedPreferences.contains("last_name") && sharedPreferences.contains("api_token") && sharedPreferences.contains("email")){
 
             Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
