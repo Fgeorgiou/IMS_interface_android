@@ -23,6 +23,16 @@ import java.net.URL;
 
 public class ScanProductsActivity extends AppCompatActivity {
 
+    TextView scannedProductNameTextView;
+    TextView scannedProductSupplierTextView;
+    TextView scannedProductCategoryTextView;
+    TextView scannedProductBarcodeValueTextView;
+    TextView scannedProductPerPackValueTextView;
+    TextView scannedProductNetValueTextView;
+    TextView scannedProductGrossValueTextView;
+    TextView scannedProductLeadValueTextView;
+    TextView scannedProductStockValueTextView;
+
     public class FetchProductInfo extends AsyncTask<String, Void, String> {
 
         @Override
@@ -73,16 +83,6 @@ public class ScanProductsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            TextView scannedProductNameTextView = findViewById(R.id.scannedProductNameTextView);
-            TextView scannedProductSupplierTextView = findViewById(R.id.scannedProductSupplierTextView);
-            TextView scannedProductCategoryTextView = findViewById(R.id.scannedProductCategoryTextView);
-            TextView scannedProductBarcodeValueTextView = findViewById(R.id.scannedProductBarcodeValueTextView);
-            TextView scannedProductPerPackValueTextView = findViewById(R.id.scannedProductPerPackValueTextView);
-            TextView scannedProductNetValueTextView = findViewById(R.id.scannedProductNetValueTextView);
-            TextView scannedProductGrossValueTextView = findViewById(R.id.scannedProductGrossValueTextView);
-            TextView scannedProductLeadValueTextView = findViewById(R.id.scannedProductLeadValueTextView);
-            TextView scannedProductStockValueTextView = findViewById(R.id.scannedProductStockValueTextView);
 
             try {
 
@@ -144,6 +144,16 @@ public class ScanProductsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_products);
+
+        scannedProductNameTextView = findViewById(R.id.scannedProductNameTextView);
+        scannedProductSupplierTextView = findViewById(R.id.scannedProductSupplierTextView);
+        scannedProductCategoryTextView = findViewById(R.id.scannedProductCategoryTextView);
+        scannedProductBarcodeValueTextView = findViewById(R.id.scannedProductBarcodeValueTextView);
+        scannedProductPerPackValueTextView = findViewById(R.id.scannedProductPerPackValueTextView);
+        scannedProductNetValueTextView = findViewById(R.id.scannedProductNetValueTextView);
+        scannedProductGrossValueTextView = findViewById(R.id.scannedProductGrossValueTextView);
+        scannedProductLeadValueTextView = findViewById(R.id.scannedProductLeadValueTextView);
+        scannedProductStockValueTextView = findViewById(R.id.scannedProductStockValueTextView);
     }
 
     @Override
@@ -198,9 +208,12 @@ public class ScanProductsActivity extends AppCompatActivity {
             }
         }
         else if(scannedProductAddButton.equals(view)){
-            Toast.makeText(getApplicationContext(), "Will Add To Selection", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(ScanProductsActivity.this, ScanProductsActivity.class);
-//            startActivity(intent);
+
+            if(scannedProductBarcodeValueTextView != null && scannedProductBarcodeValueTextView.length() == 13) {
+                Intent intent = new Intent(ScanProductsActivity.this, AddProductsActivity.class);
+                intent.putExtra("barcode", scannedProductBarcodeValueTextView.getText());
+                startActivity(intent);
+            }
         }
         else if(scannedProductBackButton.equals(view)){
             finish();

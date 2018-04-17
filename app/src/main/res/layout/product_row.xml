@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:id="@+id/rowProductName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/rowProductName"
+        android:textColor="#000"
+        android:id="@+id/rowProductNameSpacing"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="520123456789"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/rowProductNameSpacing"
+        android:textColor="#000"
+        android:id="@+id/rowProductBarcode"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Supplier: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_below="@+id/rowProductName"
+        android:id="@+id/rowProductSupplierLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delta"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowProductSupplierLabel"
+        android:layout_below="@+id/rowProductName"
+        android:id="@+id/rowProductSupplier"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Stock: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowProductSupplier"
+        android:layout_below="@+id/rowProductName"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/rowProductStockLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/rowProductStockLabel"
+        android:layout_below="@+id/rowProductName"
+        android:id="@+id/rowProductStockLevel"/>
+
+</RelativeLayout>

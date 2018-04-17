@@ -198,9 +198,6 @@ public class AdminUsersActivity extends AppCompatActivity {
 
     public void adminActionsNavigator(View view) {
 
-//        Button addButton = findViewById(R.id.newUserButton);
-//        Button backButton = findViewById(R.id.usersBackButton);
-
         if (view.equals(findViewById(R.id.newUserButton))) {
 
             Intent intent = new Intent(this, AddUsersActivity.class);

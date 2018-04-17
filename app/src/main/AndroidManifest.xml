@@ -19,8 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HomepageActivity" />
+        <activity android:name=".HomepageActivity" />
         <activity
             android:name=".OrdersSubmenuActivity"
             android:screenOrientation="portrait" />
@@ -58,6 +57,7 @@
         <activity
             android:name=".ScanProductsActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".AddProductsActivity"></activity>
     </application>
 
 </manifest>

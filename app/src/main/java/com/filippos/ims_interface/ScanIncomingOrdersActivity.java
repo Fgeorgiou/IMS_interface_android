@@ -248,10 +248,6 @@ public class ScanIncomingOrdersActivity extends AppCompatActivity {
 
                     } else {
 
-                        arrivingProductsArrayList.clear();
-
-                        arrivingProductAdapter.notifyDataSetChanged();
-
                         Toast.makeText(getApplicationContext(), "Unknown QR Format", Toast.LENGTH_LONG).show();
 
                     }
