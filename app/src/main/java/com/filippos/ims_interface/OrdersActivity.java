@@ -124,7 +124,8 @@ public class OrdersActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
 
-                Toast.makeText(getApplicationContext(), "Invalid request", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Today's order is sent.\nCheck back tomorrow.", Toast.LENGTH_LONG).show();
+                finish();
 
             }
         }
@@ -250,13 +251,17 @@ public class OrdersActivity extends AppCompatActivity {
 
             TextView orderProductRecognitionTextView = findViewById(R.id.orderProductRecognitionTextView);
             TextView orderStockTextView = findViewById(R.id.orderStockTextView);
+            TextView orderSuggestedTextView = findViewById(R.id.orderSuggestedTextView);
 
             try {
 
                 //Getting the whole json response
-                JSONObject jsonProductObject = new JSONObject(result).getJSONObject("data");
+                JSONObject jsonResponseObject = new JSONObject(result).getJSONObject("response");
+
+                JSONObject jsonProductObject = new JSONObject(jsonResponseObject.toString()).getJSONObject("product");
 
                 String productName = jsonProductObject.getString("name");
+                String productSuggetion = jsonResponseObject.getString("suggested_order");
 
                 //Getting the nested stock object
                 JSONObject jsonProductStockObject = new JSONObject(jsonProductObject.toString()).getJSONObject("stock");
@@ -266,11 +271,13 @@ public class OrdersActivity extends AppCompatActivity {
                 //Updating the UI wit response info
                 orderProductRecognitionTextView.setText(productName);
                 orderStockTextView.setText(productStock);
+                orderSuggestedTextView.setText(productSuggetion);
 
             } catch (JSONException e) {
 
                 orderProductRecognitionTextView.setText("Unknown Barcode");
                 orderStockTextView.setText("");
+                orderSuggestedTextView.setText("");
 
                 Toast.makeText(getApplicationContext(), "Unknown barcode number", Toast.LENGTH_LONG).show();
 

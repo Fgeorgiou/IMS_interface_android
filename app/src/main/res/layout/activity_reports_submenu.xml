@@ -73,12 +73,12 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:onClick="navigateToReportActivity"
+            android:text="Arrivals"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
             app:layout_row="1"
-            app:layout_rowWeight="1"
-            android:text="Order\nAnomalies"/>
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/reportSubmenuInventoryLevelsButton"
