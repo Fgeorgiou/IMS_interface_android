@@ -88,8 +88,7 @@
         android:layout_alignTop="@+id/orderStockTextView"
         android:layout_toEndOf="@+id/orderTitleTextView"
         android:background="@drawable/back"
-        android:gravity="center"
-        android:text="5" />
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/textView4"
