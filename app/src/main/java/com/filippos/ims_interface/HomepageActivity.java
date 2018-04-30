@@ -32,7 +32,7 @@ public class HomepageActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(reportsButton.equals(view)){
-            Intent intent = new Intent(HomepageActivity.this, ReportsSubmenuActivity.class);
+            Intent intent = new Intent(HomepageActivity.this, ReportSubmenuActivity.class);
             startActivity(intent);
         }
         else if(adminActionsButton.equals(view)){

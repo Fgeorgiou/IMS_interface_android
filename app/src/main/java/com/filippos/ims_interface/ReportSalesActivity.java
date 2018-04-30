@@ -1,5 +1,6 @@
 package com.filippos.ims_interface;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class ReportSalesActivity extends AppCompatActivity {
 
         EditText salesReportFromEditText = findViewById(R.id.salesReportFromEditText);
         EditText salesReportToEditText = findViewById(R.id.salesReportToEditText);
+        EditText salesReportLimitEditText = findViewById(R.id.salesReportLimitEditText);
 
         if(view.equals(findViewById(R.id.salesReportDailyButton))){
 
@@ -34,6 +36,10 @@ public class ReportSalesActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Monthly", Toast.LENGTH_LONG).show();
 
+        }else if(view.equals(findViewById(R.id.salesReportYearlyButton))){
+
+            Toast.makeText(getApplicationContext(), "Yearly", Toast.LENGTH_LONG).show();
+
         }else if(view.equals(findViewById(R.id.salesReportSubmitButton))){
 
             Pattern pattern = Pattern.compile("[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}");
@@ -41,7 +47,9 @@ public class ReportSalesActivity extends AppCompatActivity {
             Matcher matcherTo = pattern.matcher(salesReportToEditText.getText());
 
             if(matcherFrom.matches() && matcherTo.matches()){
-                Toast.makeText(getApplicationContext(), "We good", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "We good" + salesReportLimitEditText.getText(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ReportSalesActivity.this, ReportSalesResultsActivity.class);
+                startActivity(intent);
             }else{
                 Toast.makeText(getApplicationContext(), "No.", Toast.LENGTH_LONG).show();
             }

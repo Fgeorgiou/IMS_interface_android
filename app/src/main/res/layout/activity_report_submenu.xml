@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReportsSubmenuActivity">
+    tools:context=".ReportSubmenuActivity">
 
     <TextView
         android:id="@+id/reportSubmenuTextView"
@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:onClick="navigateToReportActivity"
+            android:onClick="reportActivityNavigator"
             android:text="Orders"
             app:layout_column="0"
             app:layout_columnWeight="1"
@@ -54,7 +54,7 @@
             android:layout_marginTop="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:onClick="navigateToReportActivity"
+            android:onClick="reportActivityNavigator"
             android:text="Sales"
             app:layout_column="1"
             app:layout_columnWeight="1"
@@ -72,7 +72,7 @@
             android:layout_marginTop="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:onClick="navigateToReportActivity"
+            android:onClick="reportActivityNavigator"
             android:text="Arrivals"
             app:layout_column="0"
             app:layout_columnWeight="1"
@@ -90,7 +90,7 @@
             android:layout_marginTop="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:onClick="navigateToReportActivity"
+            android:onClick="reportActivityNavigator"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="navigateToReportActivity"
+        android:onClick="reportActivityNavigator"
         android:text="Back" />
 
 </RelativeLayout>

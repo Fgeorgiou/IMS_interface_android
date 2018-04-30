@@ -19,6 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" } //Added MPAndroidChart Dependency credits: https://github.com/PhilJay/MPAndroidChart/wiki/Getting-Started
     }
 }
 

@@ -24,7 +24,7 @@
             android:name=".OrdersSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReportsSubmenuActivity"
+            android:name=".ReportSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AdminSubmenuActivity"
@@ -58,7 +58,11 @@
             android:name=".ScanProductsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".AddProductsActivity" />
-        <activity android:name=".ReportSalesActivity"></activity>
+        <activity android:name=".ReportSalesActivity" />
+        <activity android:name=".ReportSalesResultsActivity" />
+        <activity android:name=".ReportSalesSubmenuActivity" />
+        <activity android:name=".ReportTopProductsResultsActivity" />
+        <activity android:name=".ReportTopProductsActivity"></activity>
     </application>
 
 </manifest>

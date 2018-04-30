@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class ReportsSubmenuActivity extends AppCompatActivity {
+public class ReportSubmenuActivity extends AppCompatActivity {
 
-    public void navigateToReportActivity(View view){
+    public void reportActivityNavigator(View view){
 
         Button reportOrdersButton = findViewById(R.id.reportSubmenuOrdersButton);
         Button reportSalesButton = findViewById(R.id.reportSubmenuSalesButton);
@@ -21,7 +21,7 @@ public class ReportsSubmenuActivity extends AppCompatActivity {
             Log.i("Button pressed", "orders");
         }
         else if(reportSalesButton.equals(view)){
-            Intent intent = new Intent(ReportsSubmenuActivity.this, ReportSalesActivity.class);
+            Intent intent = new Intent(ReportSubmenuActivity.this, ReportSalesSubmenuActivity.class);
             startActivity(intent);
         }
         else if(reportOrderAnomaliesButton.equals(view)){
@@ -38,6 +38,6 @@ public class ReportsSubmenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reports_submenu);
+        setContentView(R.layout.activity_report_submenu);
     }
 }
