@@ -8,7 +8,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Inventory Manager"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -57,12 +57,26 @@
         <activity
             android:name=".ScanProductsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddProductsActivity" />
-        <activity android:name=".ReportSalesActivity" />
-        <activity android:name=".ReportSalesResultsActivity" />
-        <activity android:name=".ReportSalesSubmenuActivity" />
-        <activity android:name=".ReportTopProductsResultsActivity" />
-        <activity android:name=".ReportTopProductsActivity"></activity>
+        <activity
+            android:name=".AddProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReportSalesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReportSalesResultsActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity
+            android:name=".ReportSalesSubmenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReportTopProductsResultsActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity
+            android:name=".ReportTopProductsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

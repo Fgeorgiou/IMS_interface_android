@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text='Enter a date in the following format:"yyyy/mm/dd"'
+        android:text='Enter a date in the following format:"yyyy-mm-dd"'
         android:textSize="12sp" />
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:ems="10"
-        android:hint="04/21/2018"
+        android:hint="2018-04-21"
         android:inputType="date" />
 
     <EditText
@@ -78,7 +78,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
         android:ems="10"
-        android:hint="04/22/2018"
+        android:hint="2018-04-22"
         android:inputType="date" />
 
     <EditText
