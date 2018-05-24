@@ -151,7 +151,7 @@ public class ReportSalesActivity extends AppCompatActivity {
 
         }else if(view.equals(findViewById(R.id.salesReportSubmitButton))){
 
-            Pattern pattern = Pattern.compile("[0-9]{4}-[1][1-2]-[0-3][0-9]");
+            Pattern pattern = Pattern.compile("[0-9]{4}-[0-1][0-2]-[0-3][0-9]");
             Matcher matcherFrom = pattern.matcher(salesReportFromEditText.getText());
             Matcher matcherTo = pattern.matcher(salesReportToEditText.getText());
 

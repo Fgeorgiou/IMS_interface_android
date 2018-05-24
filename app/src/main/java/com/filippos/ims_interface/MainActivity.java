@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences sharedPreferences;
     //Static variable holding the ngrok server url. It is set to static to avoid repetition inside the scripts
     //Set this to either a production server address or the ngrok instance running
-    static String ngrokURL = "http://83079294.ngrok.io";
+    static String ngrokURL = "http://566d44cb.ngrok.io";
 
     public boolean isOnline() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
