@@ -12,70 +12,70 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomepageActivity" />
+        <activity android:name=".ui.activity.HomepageActivity" />
         <activity
-            android:name=".OrdersSubmenuActivity"
+            android:name=".ui.activity.OrdersSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReportSubmenuActivity"
+            android:name=".ui.activity.ReportSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminSubmenuActivity"
+            android:name=".ui.activity.AdminSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrdersActivity"
+            android:name=".ui.activity.OrdersActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AdminUsersActivity"
+            android:name=".ui.activity.AdminUsersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminSuppliersActivity"
+            android:name=".ui.activity.AdminSuppliersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminProductsActivity"
+            android:name=".ui.activity.AdminProductsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminCategoriesActivity"
+            android:name=".ui.activity.AdminCategoriesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddUsersActivity"
+            android:name=".ui.activity.AddUsersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScanSubmenuActivity"
+            android:name=".ui.activity.ScanSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScanIncomingOrdersActivity"
+            android:name=".ui.activity.ScanIncomingOrdersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScanProductsActivity"
+            android:name=".ui.activity.ScanProductsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddProductsActivity"
+            android:name=".ui.activity.AddProductsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReportSalesActivity"
+            android:name=".ui.activity.ReportSalesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReportSalesResultsActivity"
+            android:name=".ui.activity.ReportSalesResultsActivity"
             android:screenOrientation="landscape"
             />
         <activity
-            android:name=".ReportSalesSubmenuActivity"
+            android:name=".ui.activity.ReportSalesSubmenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReportTopProductsResultsActivity"
+            android:name=".ui.activity.ReportTopProductsResultsActivity"
             android:screenOrientation="landscape"
             />
         <activity
-            android:name=".ReportTopProductsActivity"
+            android:name=".ui.activity.ReportTopProductsActivity"
             android:screenOrientation="portrait" />
     </application>
 

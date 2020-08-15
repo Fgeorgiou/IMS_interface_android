@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminSubmenuActivity">
+    tools:context=".ui.activity.AdminSubmenuActivity">
 
     <TextView
         android:id="@+id/adminMenuTextView"
